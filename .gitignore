@@ -1,0 +1,31 @@
+# Directorios existentes
+/data/archive/
+/db/chroma_db/
+
+# Archivos de embeddings (son pesados)
+/embeddings/*.json
+/embeddings/songs_with_lyrics_embeddings*.json
+
+# Archivos de datos procesados
+/data/songs_with_emotions_test*.json
+/data/*.csv
+/data/*.json
+
+# Caché y modelos de transformers
+**/__pycache__/
+**/.cache/
+**/.pytorch_cache/
+**/models/
+**/.ipynb_checkpoints/
+
+# Archivos temporales
+*.pyc
+*~
+.DS_Store
+*.log
+
+# Entornos virtuales
+venv/
+env/
+.env/
+.venv/

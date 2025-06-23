@@ -1,0 +1,14 @@
+musicbot/
+├── main.py                  # CLI principal
+├── data/
+│   └── songs.json           # Dataset con letras y metadata
+├── embeddings/
+│   └── embedder.py          # Funciones para generar embeddings
+├── db/
+│   └── chroma_client.py     # Conexión a ChromaDB
+├── retrieval/
+│   └── search.py            # Consultas vectoriales
+├── generation/
+│   └── generator.py         # Integra el modelo (OpenAI, etc.)
+└── utils/
+    └── build_prompt.py      # Construcción del prompt para RAG
