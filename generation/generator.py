@@ -25,7 +25,7 @@ def generate_prompt(query_text: str, collection_name: str):
   Answer:"""
 
 
-  print("prompt: ", prompt)
+  #print("prompt: ", prompt)
   
   return prompt
 
@@ -43,8 +43,8 @@ def generate_response(query_text: str, collection_name: str):
   return generated_response
   
 # Test
-query_text = "What are the most common themes in the songs?"
-collection_name = "lyrics_test"
-generated_response = generate_response(query_text, collection_name)
+# query_text = "What are the most common themes in the songs?"
+# collection_name = "lyrics_test"
+# generated_response = generate_response(query_text, collection_name)
 
-print("generated_response: ", generated_response)
+# print("generated_response: ", generated_response)

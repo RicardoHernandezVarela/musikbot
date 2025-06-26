@@ -26,6 +26,7 @@ def get_context(query_text: str, collection_name: str):
   )
 
   # Print results
+  print("Results from ChromaDB:")
   for i, (doc, metadata) in enumerate(zip(results["documents"][0], results["metadatas"][0])):
     print(f"{i+1}. {metadata['Song Title']} - {metadata['Artist']}")
       
@@ -42,13 +43,13 @@ def get_context(query_text: str, collection_name: str):
     Lyrics (excerpt): {doc[:300]}...
     """
 
-  print("context: ", context)
+  #print("context: ", context)
   
   return context
 
 # Test
-query_text = "What are the most common themes in the songs?"
-get_context(query_text, "lyrics_test")
+# query_text = "What are the most common themes in the songs?"
+# get_context(query_text, "lyrics_test")
 
 
 
