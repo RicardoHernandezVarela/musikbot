@@ -7,8 +7,6 @@ load_dotenv()
 
 from langchain_openai import OpenAI
 
-
-
 # Get path to db
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -27,7 +25,7 @@ lyrics_test = chroma_client.get_collection(name="lyrics_test")
 # Search by lyrics
 from utils.embedder import embed_texts
 
-query_text = "give 5 recommendations of songs when feeling melancholic"
+query_text = "What are the most common themes in the songs?"
 query_embedding = embed_texts([query_text])[0].tolist() 
 #print("query_embedding: ", query_embedding)
 
