@@ -1,3 +1,4 @@
+import sys
 import polars as pl
 from transformers import pipeline
 
@@ -8,7 +9,14 @@ songs_data = pl.read_json(file_path).with_row_index(offset=1)
 # Select a subset of the data for testing
 test_subset = songs_data[0:5]
 
-print(f"You will process a subset of {len(test_subset)} songs...")
+# Songs sample
+songs_data_sample = songs_data.sample(fraction=0.05, seed=42)
+
+print(f"You will process a sample of {len(songs_data_sample)} songs...")
+
+print(songs_data_sample.head())
+
+sys.exit()
 
 # Define the list of emotion labels
 emotion_labels = [
