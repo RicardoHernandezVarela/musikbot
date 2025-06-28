@@ -6,17 +6,12 @@ from transformers import pipeline
 file_path="../data/archive/all_songs_data.json"
 songs_data = pl.read_json(file_path).with_row_index(offset=1)
 
-# Select a subset of the data for testing
-test_subset = songs_data[0:5]
-
 # Songs sample
 songs_data_sample = songs_data.sample(fraction=0.05, seed=42)
 
 print(f"You will process a sample of {len(songs_data_sample)} songs...")
 
 print(songs_data_sample.head())
-
-sys.exit()
 
 # Define the list of emotion labels
 emotion_labels = [
@@ -54,7 +49,7 @@ def classify_emotions_in_lyrics(text: str) -> list[str]:
 print("Applying emotion classification...")
 
 emotion_tags = []
-for lyrics in test_subset["Lyrics"]:
+for lyrics in songs_data_sample["Lyrics"]:
     if lyrics is None or lyrics.strip() == "":
         emotion_tags.append([])
     else:
@@ -63,9 +58,9 @@ for lyrics in test_subset["Lyrics"]:
 print("Completed emotion classification.")
 
 # Add emotion tags to the songs data
-test_subset_with_emotions = test_subset.with_columns(pl.Series("emotion_tags", emotion_tags))
+songs_data_sample_with_emotions = songs_data_sample.with_columns(pl.Series("emotion_tags", emotion_tags))
 
 # Save the dataset with emotion tags in a new JSON file
-print("Saving dataset with emotion tags...")
-test_subset_with_emotions.write_json("songs_with_emotions_test_2.json")
+print("Saving dataset sample with emotion tags...")
+songs_data_sample_with_emotions.write_json("songs_with_emotions_sample.json")
 print("Dataset saved.")

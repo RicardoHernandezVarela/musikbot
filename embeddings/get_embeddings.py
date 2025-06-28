@@ -1,10 +1,13 @@
+import sys
 import polars as pl
 from transformers import AutoTokenizer, AutoModel
 import torch
 
 # Load songs with emotions tags from JSON file
-file_path="../data/songs_with_emotions_test_1.json"
+file_path="../data/songs_with_emotions_sample.json"
 songs_with_emotions_tags_data = pl.read_json(file_path)
+
+print(f"You will process a sample of {len(songs_with_emotions_tags_data)} songs...")
 
 # Load tokenizer for the embedding model
 tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
@@ -48,7 +51,7 @@ print("Getting all the lyrics...")
 all_lyrics = []
 for lyrics in songs_with_emotions_tags_data["Lyrics"]:
     if lyrics is None or lyrics.strip() == "":
-        pass
+        all_lyrics.append("")
     else:
         all_lyrics.append(lyrics)
         
@@ -73,6 +76,6 @@ print("Completed adding embeddings to the songs data.")
 # Save the dataset with embeddings in a new JSON file
 print("Saving dataset with embeddings...")
 
-songs_with_lyrics_embeddings.write_json("songs_with_lyrics_embeddings_1.json")
+songs_with_lyrics_embeddings.write_json("songs_with_lyrics_embeddings_sample.json")
 
 print("Dataset saved.")
