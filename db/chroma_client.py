@@ -2,10 +2,13 @@ import polars as pl
 import os
 import chromadb
 import json
+import sys
 
 # Load songs with embeddings from JSON file
-file_path="../embeddings/songs_with_lyrics_embeddings.json"
+file_path="../embeddings/songs_with_lyrics_embeddings_sample.json"
 songs_with_lyrics_embeddings = pl.read_json(file_path)
+
+print(f"Number of songs: {len(songs_with_lyrics_embeddings)}")
 
 # Create a ChromaDB client - persistent
 # chroma_client = chromadb.Client()
@@ -14,7 +17,7 @@ db_path = os.path.join(current_dir, "chroma_db")
 chroma_client = chromadb.PersistentClient(path=db_path)
 
 # Create collection
-lyrics_test = chroma_client.get_or_create_collection(name="lyrics_test")
+songs_lyrics = chroma_client.get_or_create_collection(name="songs_lyrics")
 
 # Add documents to the collection
 documents_list = songs_with_lyrics_embeddings["Lyrics"].to_list()
@@ -41,8 +44,8 @@ embeddings_list = songs_with_lyrics_embeddings["embeddings"].to_list()
 ids = songs_with_lyrics_embeddings["index"].to_list()
 ids_list = [str(x) for x in ids]
 
-# Add documents to the lyrics_test collection
-lyrics_test.add(
+# Add documents to the songs_lyrics collection
+songs_lyrics.add(
     documents=documents_list,
     metadatas=metadatas_list,
     embeddings=embeddings_list,
