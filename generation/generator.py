@@ -19,7 +19,7 @@ prompt_schemas = {
   },
   "lyrics_analysis": {
     "intro": "You are a music recommendation expert with deep knowledge of songs and their emotional themes.",
-    "description": "provide a brief analysis of the emotional themes in the query and the key lyrics of the song."
+    "description": "provide a brief analysis of the emotional themes in the query and add the most recognizable lines of the lyrics."
   }
 }
 
