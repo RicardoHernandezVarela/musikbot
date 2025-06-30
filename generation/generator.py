@@ -12,15 +12,35 @@ load_dotenv()
 
 from langchain_openai import OpenAI
 
-def generate_prompt(query_text: str, collection_name: str):
+prompt_schemas = {
+  "song_recommendations": {
+    "intro": "You are a music recommendation expert with deep knowledge of songs and their emotional themes.",
+    "description": "list of 2-3 recommended songs different from the ones in the context, with brief explanation why each matches the query and the key lyrics of the song."
+  },
+  "lyrics_analysis": {
+    "intro": "You are a music recommendation expert with deep knowledge of songs and their emotional themes.",
+    "description": "provide a brief analysis of the emotional themes in the query and the key lyrics of the song."
+  }
+}
+
+def generate_prompt(query_text: str, collection_name: str, search_type: str):
   # Get context
   context = get_context(query_text, collection_name)
   
+  # Get prompt schema
+  prompt_schema = prompt_schemas[search_type]
+  intro = prompt_schema["intro"]
+  description = prompt_schema["description"]
+  
   # Generate prompt
   prompt = f"""
+  {intro}
+  
+  Based on the following context of songs and their emotional themes, {description}
+  
   Context: {context}
-
-  Question: {query_text}
+  
+  User Query: {query_text}
 
   Answer:"""
 
@@ -32,11 +52,11 @@ def generate_prompt(query_text: str, collection_name: str):
 llm = OpenAI(
   model_name="gpt-3.5-turbo-instruct",
   temperature=0.7,
-  max_tokens=256
+  max_tokens=350
 )
 
-def generate_response(query_text: str, collection_name: str):
-  prompt = generate_prompt(query_text, collection_name)
+def generate_response(query_text: str, collection_name: str, search_type: str = "song_recommendations"):
+  prompt = generate_prompt(query_text, collection_name, search_type)
 
   generated_response = llm.invoke(prompt)
 

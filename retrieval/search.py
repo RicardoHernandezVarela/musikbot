@@ -22,7 +22,7 @@ def get_context(query_text: str, collection_name: str):
 
   results = lyrics_test.query(
     query_embeddings=[query_embedding],
-    n_results=2,
+    n_results=3,
   )
 
   # Print results
@@ -48,8 +48,10 @@ def get_context(query_text: str, collection_name: str):
   return context
 
 # Test
-# query_text = "What are the most common themes in the songs?"
-# get_context(query_text, "lyrics_test")
+# query_text = "songs with narratives about darkness"
+# context = get_context(query_text, "songs_lyrics")
+
+# print("context: ", context)
 
 
 

@@ -13,7 +13,7 @@ def main():
       escape = True
     else:
       print("\n🔍 Searching for songs...\n")
-      response = generate_response(query_text, "lyrics_test")
+      response = generate_response(query_text, "songs_lyrics", "lyrics_analysis")
 
       print("🎵 Recommendations generated:")
       print(response)
